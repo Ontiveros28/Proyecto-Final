@@ -171,3 +171,4 @@ if __name__ == "__main__":
     GLOBAL200()
     Billboard_200()
     tiktok_top50()
+    print("Datos extraidos")
