@@ -17,7 +17,6 @@ def HOT100():
     navegador.get("https://www.billboard.com/charts/hot-100/")
     time.sleep(5)
 
-    # Extract the page content using BeautifulSoup
     soup = BeautifulSoup(navegador.page_source, "html.parser")
     navegador.quit()
 
@@ -125,7 +124,6 @@ def Billboard_200():
 
 
 def tiktok_top50():
-
     driver = ChromeDriverManager().install()
     service = Service(driver)
     options = Options()
@@ -155,7 +153,6 @@ def tiktok_top50():
         last_week, peak_position, weeks_on_chart = container.find_all(
             "ul", {"class": "lrv-a-unstyle-list"})[-1].text.strip().split()
 
-
         data["Peak"].append(peak_position)
         data["Artist"].append(artist.replace("Featuring", "Feat."))
         data["SongName"].append(song)
@@ -171,4 +168,3 @@ if __name__ == "__main__":
     GLOBAL200()
     Billboard_200()
     tiktok_top50()
-    print("Datos extraidos")
