@@ -97,7 +97,7 @@ def Billboard_200():
     soup = BeautifulSoup(navegador.page_source, "html.parser")
     navegador.quit()
 
-    filename = "datasets/bilboard200.csv"
+    filename = "datasets/billboard200.csv"
     os.makedirs("datasets", exist_ok=True)
 
     data = {
