@@ -61,3 +61,42 @@ for dataset in datasets:
     )
     """
     cursor.execute(create_table_query)
+
+    for _, row in df.iterrows():
+        artist_name = row["Artist"]
+        song_name = row["SongName"]
+
+        # Insertar el artista (evitando duplicados)
+        cursor.execute("""
+            INSERT IGNORE INTO artists (name)
+            VALUES (%s)
+            """, (artist_name,))
+
+        # Obtener el ID del artista
+        cursor.execute("""
+            SELECT id FROM artists WHERE name = %s
+            """, (artist_name,))
+        artist_id = cursor.fetchone()[0]
+
+        # Insertar la canción en la tabla songs
+        cursor.execute("""
+            INSERT INTO songs (song_name, artist_id)
+            VALUES (%s, %s)
+            """, (song_name, artist_id))
+
+        # Insertar los datos del dataset en su tabla correspondiente
+    for _, row in df.iterrows():
+        clean_row = [str(value) if pd.notna(value) else "Desconocido" for value in row]
+        placeholders = ", ".join(["%s"] * len(row))
+        insert_query = f"""
+            INSERT INTO `{table_name}` ({', '.join([f'`{col}`' for col in df.columns])})
+            VALUES ({placeholders})
+            """
+        cursor.execute(insert_query, tuple(clean_row))
+
+    # Confirmar los cambios y cerrar la conexión
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+    print("Tablas y datos insertados correctamente.")
