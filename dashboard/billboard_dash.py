@@ -248,7 +248,7 @@ def update_graph(selected_dataset):
 
 def render_page_content(pathname):
     # Ruta de la imagen JPG (asegúrate de que la ruta sea correcta)
-    background_image = "/assets/TikDownloader.io_7388784597720550661_hd.mov"  # Cambia esto por la ruta correcta de tu imagen JPG
+    background_image = "/assets/TikDownloader.io_7388784597720550661_hd.mov"  # Cambia esto por la ruta correcta de tu video
 
     if pathname == "/":
         return html.Div(
